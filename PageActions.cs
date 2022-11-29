@@ -31,7 +31,6 @@ namespace UIAutomation
         {
             Actions act = new Actions(_driver);
             _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
-            act.ContextClick();
             //Hover over Men tab and click it to access Men menu
             _driver.FindElement(Mens).Click();
             // Click Tops hyperlink to access items
