@@ -12,23 +12,23 @@ using System.Threading;
 
 namespace UIAutomation
 {
+    
     public class Tests
     {
         IWebDriver _driver = new ChromeDriver();
 
         
-
-        [SetUp]
+        [OneTimeSetUp]
         public void Setup()
         {
-            PageElements p = new PageElements(_driver);
 
             _driver.Navigate().GoToUrl("https://magento.softwaretestingboard.com/");
             Login();
-            
+            _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
+
         }
 
-
+      
         private void Login()
         {
             
@@ -53,18 +53,18 @@ namespace UIAutomation
         [Test]
         public void ManageWishlist()
         {
-            _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
           
             PageElements _pageElements = new PageElements(_driver);
             PageActions actions = new PageActions(_driver);
 
-            
-            actions.AddToWish(_pageElements.MenMenu, _pageElements.TopsMenu, _pageElements.ItemPhoto,
-                _pageElements.MediumSizebtn, _pageElements.BlueColorOptionbtn, _pageElements.AddToWishbtn)
-          
             //Fail TC- added to wish with no options
-            .AddToWishFail(_pageElements.MenMenu, _pageElements.TopsMenu, _pageElements.ItemPhoto,
-               _pageElements.AddToWishbtn);
+            actions.AddToWishFail(_pageElements.MenMenu, _pageElements.TopsMenu, _pageElements.ItemPhoto,
+               _pageElements.AddToWishbtn)
+
+            .AddToWish(_pageElements.MenMenu, _pageElements.TopsMenu, _pageElements.ItemPhoto,
+                _pageElements.MediumSizebtn, _pageElements.BlueColorOptionbtn, _pageElements.AddToWishbtn);
+
+            
            
         }
 
@@ -100,10 +100,5 @@ namespace UIAutomation
         }
 
 
-        [TearDown]
-        public void TearDown()
-        {
-            _driver.Quit();
-        }
     }
 }
